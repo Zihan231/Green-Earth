@@ -19,14 +19,14 @@ const loadAllTrees = async () => {
     // console.log(plant.name)
     const div = document.createElement("div");
     div.innerHTML = `
-      <div onClick="showPlantDetails(${plant.id})" class="bg-white rounded-lg md:rounded-xl shadow-md h-full md:h-full flex flex-col md:p-4 md:border md:border-gray-200">
+      <div class="bg-white rounded-lg md:rounded-xl shadow-md h-[360px] md:h-[450px] flex flex-col md:p-4 md:border md:border-gray-200">
   <img
     class="h-[152px] w-[152px] mb-2 md:w-full md:h-40 md:object-cover rounded-md"
     src="${plant.image}"
     alt="Tree Img"
   />
 
-  <h2 class="font-semibold text-lg text-left">${plant.name}</h2>
+  <h2 onClick="showPlantDetails(${plant.id})" class="font-semibold text-lg text-left">${plant.name}</h2>
 
   <!-- description reserves ~6 lines and truncates -->
   <p class="text-xs text-left md:text-sm overflow-hidden text-ellipsis line-clamp-3 md:line-clamp-6 min-h-[6lh]">
@@ -43,6 +43,7 @@ const loadAllTrees = async () => {
     </div>
 
     <button
+    onClick="addToCart(${plant.id})"
       class="bg-[#15803D] w-[95%] md:w-full text-white font-medium mt-2 mb-1 md:mt-4 rounded-lg hover:bg-[#035421] md:px-[20px] md:py-[6px] md:rounded-full"
     >
       Add to Cart
@@ -110,7 +111,7 @@ const showPlantDetails = async (id) => {
         
   `;
   document.getElementById("plantDetails").showModal();
-}
+};
 loadCategory();
 loadAllTrees();
 // plantDetails.showModal();
@@ -129,14 +130,14 @@ const showByCategory = async (id) => {
     // console.log(plant.name)
     const div = document.createElement("div");
     div.innerHTML = `
-      <div onClick="showPlantDetails(${plant.id})" class="bg-white rounded-lg md:rounded-xl shadow-md h-full md:h-full flex flex-col md:p-4 md:border md:border-gray-200">
+      <div class="bg-white rounded-lg md:rounded-xl shadow-md h-full md:h-full flex flex-col md:p-4 md:border md:border-gray-200">
   <img
     class="h-[152px] w-[152px] mb-2 md:w-full md:h-40 md:object-cover rounded-md"
     src="${plant.image}"
     alt="Tree Img"
   />
 
-  <h2 class="font-semibold text-lg text-left">${plant.name}</h2>
+  <h2 onClick="showPlantDetails(${plant.id})" class="font-semibold text-lg text-left">${plant.name}</h2>
 
   <!-- description reserves ~6 lines and truncates -->
   <p class="text-xs text-left md:text-sm overflow-hidden text-ellipsis line-clamp-3 md:line-clamp-6 min-h-[6lh]">
@@ -153,6 +154,7 @@ const showByCategory = async (id) => {
     </div>
 
     <button
+    onClick="addToCart(${plant.id})"
       class="bg-[#15803D] w-[95%] md:w-full text-white font-medium mt-2 mb-1 md:mt-4 rounded-lg hover:bg-[#035421] md:px-[20px] md:py-[6px] md:rounded-full"
     >
       Add to Cart
@@ -164,3 +166,43 @@ const showByCategory = async (id) => {
   }
 };
 
+let TotalPrice = 0;
+// Add to cart
+const addToCart = async (id) => {
+  const url = `https://openapi.programming-hero.com/api/plant/${id}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  const plant = data.plants;
+  console.log(id);
+  const container = document.getElementById("add-to-cart");
+  const div = document.createElement("div");
+  div.innerHTML = `
+            <div
+            id="remove-${id}"
+              class="bg-[#F0FDF4] flex justify-between py-2 border-1 border-gray-200 rounded-lg mb-1 md:px-4"
+            >
+              <div>
+                <h1 class="text-left text-sm font-medium mb-2">${plant.name}</h1>
+                <p class="text-sm font-normal text-left text-[#585555]">
+                  &#2547;${plant.price} x 1
+                </p>
+              </div>
+              <button
+              onClick="removeFromCart(${id},${plant.price})"
+              >
+                <i
+                  class="text-[#8C8C8C] fa-solid fa-xmark hover:text-red-500"
+                ></i>
+              </button>
+            </div>
+  `;
+  container.appendChild(div);
+  TotalPrice += plant.price;
+  document.getElementById("total-price").innerHTML = `&#2547; ${TotalPrice}`;
+  // console.log(TotalPrice);
+};
+const removeFromCart = (id, price) => {
+  document.getElementById(`remove-${id}`).remove();
+  TotalPrice -= price;
+  document.getElementById("total-price").innerHTML = `&#2547; ${TotalPrice}`;
+};
