@@ -114,9 +114,7 @@
       <!-- main container -->
       <div class="grid grid-cols-8 md:gap-4 md:grid-cols-10">
         <!-- category section -->
-        <aside
-          class="text-center col-span-8 row-span-2 py-4 md:col-span-2"
-        >
+        <aside class="text-center col-span-8 row-span-2 py-4 md:col-span-2">
           <h3 class="font-bold text-base mb-2 md:text-lg">Categories</h3>
           <ul
             id="category-Section"
@@ -190,6 +188,21 @@
         </aside>
       </div>
     </section>
+    <!-- Modal -->
+    <!-- Open the modal using ID.showModal() method -->
+    <!-- <button class="btn" onclick="my_modal_5.showModal()">open modal</button> -->
+    <dialog id="plantDetails" class="modal modal-middle sm:modal-middle">
+      <div class="modal-box w-[95%] mx-auto">
+        <div id="modal-container">
+        </div>
+        <div class="modal-action">
+          <form method="dialog">
+            <!-- if there is a button in form, it will close the modal -->
+            <button class="btn bg-[#15803D] w-[95%] md:w-full text-white font-medium mt-2 mb-1 md:mt-4 rounded-lg hover:bg-[#035421] md:px-[20px] md:py-[6px] md:rounded-full">Close</button>
+          </form>
+        </div>
+      </div>
+    </dialog>
     <!-- Impact -->
     <section class="bg-[#CFF0DC] mt-10 text-center md:h-80">
       <h1 class="font-semibold text-2xl py-5 md:pt-8 md:pb-5">Our Impact</h1>

@@ -1,3 +1,12 @@
+const setActive = (id) => {
+  const btns = document.getElementsByClassName("cat-btn");
+  // console.log(btns);
+  for (let btn of btns) {
+    btn.classList.remove("active");
+  }
+  // console.log(id);
+  document.getElementById(`cat-${id}`).classList.add("active");
+};
 const loadAllTrees = async () => {
   const url = "https://openapi.programming-hero.com/api/plants";
   const response = await fetch(url);
@@ -5,13 +14,12 @@ const loadAllTrees = async () => {
   // console.log(data.plants);
   const container = document.getElementById("main-container");
   container.innerHTML = "";
-
   const plants = data.plants;
   for (let plant of plants) {
     // console.log(plant.name)
     const div = document.createElement("div");
     div.innerHTML = `
-      <div class="bg-white rounded-lg md:rounded-xl shadow-md h-full md:h-full flex flex-col md:p-4 md:border md:border-gray-200">
+      <div onClick="showPlantDetails(${plant.id})" class="bg-white rounded-lg md:rounded-xl shadow-md h-full md:h-full flex flex-col md:p-4 md:border md:border-gray-200">
   <img
     class="h-[152px] w-[152px] mb-2 md:w-full md:h-40 md:object-cover rounded-md"
     src="${plant.image}"
@@ -44,9 +52,8 @@ const loadAllTrees = async () => {
       `;
     container.appendChild(div);
   }
+  setActive(0);
 };
-loadAllTrees();
-
 // Load Category
 const loadCategory = async () => {
   url = "https://openapi.programming-hero.com/api/categories/";
@@ -58,8 +65,9 @@ const loadCategory = async () => {
   container.innerHTML = `
     <li class="text-[#1F2937] font-medium list-none">
               <button
+              id="cat-0"
               onClick="loadAllTrees()"
-                class="border border-gray-200 rounded-sm px-8 hover:bg-[#15803D] hover:text-white w-full md:text-left md:py-2 md:border-0"
+                class="cat-btn border border-gray-200 rounded-sm px-8 hover:bg-[#15803D] hover:text-white w-full md:text-left md:py-2 md:border-0"
               >
                 All Trees
               </button>
@@ -71,20 +79,43 @@ const loadCategory = async () => {
     li.classList.add("list-none");
     li.innerHTML = `
         <button
+                id="cat-${category.id}"
                 onClick="showByCategory(${category.id})"
-                class="border border-gray-200 rounded-sm px-8 hover:bg-[#15803D] hover:text-white w-full md:text-left md:py-2 md:border-0 text-[#1F2937] font-medium"
+                class="cat-btn border border-gray-200 rounded-sm px-8 hover:bg-[#15803D] hover:text-white w-full md:text-left md:py-2 md:border-0 text-[#1F2937] font-medium"
               >
                 ${category.category_name}
         </button>
-        
         `;
     container.appendChild(li);
     //   console.log(container);
   }
+  setActive(0);
 };
-loadCategory();
 
+// Show Modal
+const showPlantDetails = async (id) => {
+  const container = document.getElementById("modal-container");
+  const url = `https://openapi.programming-hero.com/api/plant/${id}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  const plant = data.plants;
+  console.log(plant);
+  container.innerHTML = `
+
+          <h1 class="font-bold text-2xl mb-2">${plant.name}</h1>
+          <img class="h-[200px] md:h-[320px] w-full mb-2 rounded-lg" src="${plant.image}" alt="Tree Picture">
+          <p class="mb-2"><b>Category:</b> ${plant.category}</p>
+          <p class="mb-2"><b>Price:</b> &#2547;${plant.price}</p>
+          <p class="h-[100px] overflow-auto"><b>Description:</b> ${plant.description}</p>
+        
+  `;
+  document.getElementById("plantDetails").showModal();
+}
+loadCategory();
+loadAllTrees();
+// plantDetails.showModal();
 const showByCategory = async (id) => {
+  setActive(id);
   // console.log(id);
   const url = `https://openapi.programming-hero.com/api/category/${id}`;
   const response = await fetch(url);
@@ -98,7 +129,7 @@ const showByCategory = async (id) => {
     // console.log(plant.name)
     const div = document.createElement("div");
     div.innerHTML = `
-      <div class="bg-white rounded-lg md:rounded-xl shadow-md h-full md:h-full flex flex-col md:p-4 md:border md:border-gray-200">
+      <div onClick="showPlantDetails(${plant.id})" class="bg-white rounded-lg md:rounded-xl shadow-md h-full md:h-full flex flex-col md:p-4 md:border md:border-gray-200">
   <img
     class="h-[152px] w-[152px] mb-2 md:w-full md:h-40 md:object-cover rounded-md"
     src="${plant.image}"
@@ -132,6 +163,4 @@ const showByCategory = async (id) => {
     container.appendChild(div);
   }
 };
-// document.getElementById("category-section").addEventListener("click", (e) => {
-//     console.log(e.target.innerText);
-// })
+
