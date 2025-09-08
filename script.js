@@ -208,10 +208,14 @@ const removeFromCart = (id, price) => {
   TotalPrice -= price;
   document.getElementById("total-price").innerHTML = `&#2547; ${TotalPrice}`;
 };
-
+// Load Year
+const loadYear = async () => {
+  document.getElementById("year").innerText = new Date().getFullYear();
+};
 // First call
 const init = async () => {
   await loadCategory();
   await loadAllTrees();
+  await loadYear();
 };
-// init();
+init();
