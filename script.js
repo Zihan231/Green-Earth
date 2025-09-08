@@ -11,10 +11,8 @@ const setActive = (id) => {
 const loader = (status) => {
   if (status) {
     document.getElementById("loader").style.display = "";
-  }
-  else {
-        document.getElementById("loader").style.display = "none";
-
+  } else {
+    document.getElementById("loader").style.display = "none";
   }
 };
 const loadAllTrees = async () => {
@@ -78,12 +76,13 @@ const loadCategory = async () => {
               <button
               id="cat-0"
               onClick="loadAllTrees()"
-                class="cat-btn border border-gray-200 rounded-sm px-8 hover:bg-[#15803D] hover:text-white w-full md:text-left md:py-2 md:border-0"
+                class="cat-btn border border-gray-200 rounded-sm px-8 hover:bg-[#71ffa5] hover:text-white w-full md:text-left md:py-2 md:border-0"
               >
                 All Trees
               </button>
             </li>
     `;
+  setActive(0);
   const categories = data.categories;
   for (let category of categories) {
     const li = document.createElement("li");
@@ -92,7 +91,7 @@ const loadCategory = async () => {
         <button
                 id="cat-${category.id}"
                 onClick="showByCategory(${category.id})"
-                class="cat-btn border border-gray-200 rounded-sm px-8 hover:bg-[#15803D] hover:text-white w-full md:text-left md:py-2 md:border-0 text-[#1F2937] font-medium"
+                class="cat-btn border border-gray-200 rounded-sm px-8 hover:bg-[#71ffa5] hover:text-white w-full md:text-left md:py-2 md:border-0 text-[#1F2937] font-medium"
               >
                 ${category.category_name}
         </button>
@@ -100,7 +99,6 @@ const loadCategory = async () => {
     container.appendChild(li);
     //   console.log(container);
   }
-  setActive(0);
 };
 // Show Modal
 const showPlantDetails = async (id) => {
@@ -109,7 +107,7 @@ const showPlantDetails = async (id) => {
   const response = await fetch(url);
   const data = await response.json();
   const plant = data.plants;
-  console.log(plant);
+  // console.log(plant);
   container.innerHTML = `
 
           <h1 class="font-bold text-2xl mb-2">${plant.name}</h1>
@@ -121,8 +119,6 @@ const showPlantDetails = async (id) => {
   `;
   document.getElementById("plantDetails").showModal();
 };
-loadCategory();
-loadAllTrees();
 // plantDetails.showModal();
 const showByCategory = async (id) => {
   loader(true);
@@ -194,13 +190,11 @@ const addToCart = async (id) => {
                   &#2547;${plant.price} x 1
                 </p>
               </div>
-              <button
+              <i
               onClick="removeFromCart(${id},${plant.price})"
-              >
-                <i
-                  class="text-[#8C8C8C] fa-solid fa-xmark hover:text-red-500"
+                  class="text-[#8C8C8C] fa-solid fa-xmark hover:text-red-500 h-[20px] my-auto"
                 ></i>
-              </button>
+              
             </div>
   `;
   container.appendChild(div);
@@ -214,3 +208,10 @@ const removeFromCart = (id, price) => {
   TotalPrice -= price;
   document.getElementById("total-price").innerHTML = `&#2547; ${TotalPrice}`;
 };
+
+// First call
+const init = async () => {
+  await loadCategory();
+  await loadAllTrees();
+};
+// init();

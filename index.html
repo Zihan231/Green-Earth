@@ -21,6 +21,8 @@
     />
     <!-- Stylesheet -->
     <link rel="stylesheet" href="./style.css" />
+    <!-- Fav icon -->
+    <link rel="shortcut icon" href="./assets/favIcon.png" type="image/x-icon" />
   </head>
   <body class="inter bg-[#F0FDF4]">
     <!-- Nav Bar -->
@@ -164,7 +166,7 @@
         </main>
         <!-- Cart Section -->
         <aside
-          class="border-1 border-gray-200 px-1 py-2 bg-white mt-2 rounded-lg md:col-span-1"
+          class="border-1 border-gray-200 px-1 py-2 mb-2 bg-white mt-2 rounded-lg md:col-span-1"
         >
           <h1 class="font-bold text-base mb-2 md:text-lg">Your Cart</h1>
           <!-- container -->
@@ -182,8 +184,6 @@
       </div>
     </section>
     <!-- Modal -->
-    <!-- Open the modal using ID.showModal() method -->
-    <!-- <button class="btn" onclick="my_modal_5.showModal()">open modal</button> -->
     <dialog id="plantDetails" class="modal modal-middle sm:modal-middle">
       <div class="modal-box w-[95%] mx-auto">
         <div id="modal-container"></div>
@@ -199,30 +199,61 @@
         </div>
       </div>
     </dialog>
-    <!-- Impact -->
-    <section class="bg-[#CFF0DC] mt-10 text-center md:h-80">
-      <h1 class="font-semibold text-2xl py-5 md:pt-8 md:pb-5">Our Impact</h1>
-      <div class="flex flex-col md:flex-row md:justify-center md:gap-12 gap-2">
-        <div
-          class="bg-white rounded-xl py-10 border-1 border-gray-300 shadow-md md:w-80 mx-5"
-        >
-          <h1 class="text-[#15803D] font-bold text-2xl mb-4">500K+</h1>
-          <p class="text-[#1F2937] font-semibold text-xl">Trees Planted</p>
+
+    <!-- About -->
+    <section class="my-5 text-center px-4 shadow-md rounded-2xl md:shadow-none md:mb-20">
+      <h1 class="font-bold text-lg mb-3 md:mb-5 md:text-3xl">About the Campaign</h1>
+      <!-- container div -->
+      <div class="md:flex justify-between items-center md:w-[70%] mx-auto gap-5">
+        <div>
+          <img class="w-full" src="./assets/about.png" alt="About Image" />
         </div>
-        <div
-          class="bg-white rounded-xl py-10 border-1 border-gray-300 shadow-md md:w-80 mx-5"
-        >
-          <h1 class="text-[#15803D] font-bold text-2xl mb-4">500K+</h1>
-          <p class="text-[#1F2937] font-semibold text-xl">Trees Planted</p>
-        </div>
-        <div
-          class="bg-white rounded-xl py-10 border-1 border-gray-300 shadow-md md:w-80 mx-5"
-        >
-          <h1 class="text-[#15803D] font-bold text-2xl mb-4">500K+</h1>
-          <p class="text-[#1F2937] font-semibold text-xl">Trees Planted</p>
+        <!-- Headings Div -->
+        <div class="text-left mt-4 p-4 border-1 border-gray-100 md:w-1/2">
+          <p class="mb-4">
+            Green Earth is a global tree plantation initiative dedicated to
+            fighting climate change. Since our start, we’ve planted over 500,000
+            trees worldwide. By joining our campaign, you help restore forests,
+            create habitats for wildlife, and combat global warming.
+          </p>
+          <ul class="list-disc ml-4">
+            <li>Restoration of natural habitats</li>
+            <li>Improvement of air quality</li>
+            <li>Support for local communities</li>
+          </ul>
         </div>
       </div>
     </section>
+    <!-- Impact -->
+    <section class="bg-[#CFF0DC] mt-10 text-center md:h-80 mb-8">
+      <h1 class="font-semibold text-2xl py-5 md:pt-8 md:pb-5">Our Impact</h1>
+      <div class="flex flex-col md:flex-row md:justify-center md:gap-12 gap-2">
+        <div
+          class="bg-white rounded-xl py-10 border-1 border-gray-300 shadow-md md:w-80 mx-5 hover:bg-[#4e9669]"
+        >
+          <h1 class="text-[#15803D] font-bold text-2xl mb-4">500K+</h1>
+          <p class="text-[#1F2937] font-medium text-base">Trees Planted</p>
+        </div>
+        <div
+          class="bg-white rounded-xl py-10 border-1 border-gray-300 shadow-md md:w-80 mx-5"
+        >
+          <h1 class="text-[#15803D] font-bold text-2xl mb-4">100K+</h1>
+          <p class="text-[#1F2937] font-semibold text-base">
+            Communities Involved
+          </p>
+        </div>
+        <div
+          class="bg-white rounded-xl py-10 border-1 border-gray-300 shadow-md md:w-80 mx-5"
+        >
+          <h1 class="text-[#15803D] font-bold text-2xl mb-4">30K+</h1>
+          <p class="text-[#1F2937] font-semibold text-base">
+            Countries Reached
+          </p>
+        </div>
+      </div>
+    </section>
+    <!-- Footer -->
+     
     <script src="./script.js"></script>
   </body>
 </html>
