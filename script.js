@@ -7,7 +7,18 @@ const setActive = (id) => {
   // console.log(id);
   document.getElementById(`cat-${id}`).classList.add("active");
 };
+// Loader
+const loader = (status) => {
+  if (status) {
+    document.getElementById("loader").style.display = "";
+  }
+  else {
+        document.getElementById("loader").style.display = "none";
+
+  }
+};
 const loadAllTrees = async () => {
+  loader(true);
   const url = "https://openapi.programming-hero.com/api/plants";
   const response = await fetch(url);
   const data = await response.json();
@@ -19,20 +30,18 @@ const loadAllTrees = async () => {
     // console.log(plant.name)
     const div = document.createElement("div");
     div.innerHTML = `
-      <div class="bg-white rounded-lg md:rounded-xl shadow-md h-[360px] md:h-[450px] flex flex-col md:p-4 md:border md:border-gray-200">
+      <div class="bg-white rounded-lg md:rounded-xl shadow-md h-[360px] md:h-[450px] flex flex-col md:p-4 md:border md:border-gray-200 px-2">
   <img
-    class="h-[152px] w-[152px] mb-2 md:w-full md:h-40 md:object-cover rounded-md"
+    class="h-[152px] w-[100%] mb-2 md:w-full md:h-40 md:object-cover rounded-md"
     src="${plant.image}"
     alt="Tree Img"
   />
-
   <h2 onClick="showPlantDetails(${plant.id})" class="font-semibold text-lg text-left">${plant.name}</h2>
 
   <!-- description reserves ~6 lines and truncates -->
   <p class="text-xs text-left md:text-sm overflow-hidden text-ellipsis line-clamp-3 md:line-clamp-6 min-h-[6lh]">
     ${plant.description}
   </p>
-
   <!-- actions pinned to bottom -->
   <div class="mt-auto">
     <div class="flex justify-between text-sm py-2 px-1 md:px-0">
@@ -53,6 +62,7 @@ const loadAllTrees = async () => {
       `;
     container.appendChild(div);
   }
+  loader(false);
   setActive(0);
 };
 // Load Category
@@ -92,7 +102,6 @@ const loadCategory = async () => {
   }
   setActive(0);
 };
-
 // Show Modal
 const showPlantDetails = async (id) => {
   const container = document.getElementById("modal-container");
@@ -116,23 +125,21 @@ loadCategory();
 loadAllTrees();
 // plantDetails.showModal();
 const showByCategory = async (id) => {
+  loader(true);
   setActive(id);
-  // console.log(id);
+  const container = document.getElementById("main-container");
+  container.innerHTML = "";
   const url = `https://openapi.programming-hero.com/api/category/${id}`;
   const response = await fetch(url);
   const data = await response.json();
-  // console.log(data.plants);
-  const container = document.getElementById("main-container");
-  container.innerHTML = "";
-
   const plants = data.plants;
+
   for (let plant of plants) {
-    // console.log(plant.name)
     const div = document.createElement("div");
     div.innerHTML = `
-      <div class="bg-white rounded-lg md:rounded-xl shadow-md h-full md:h-full flex flex-col md:p-4 md:border md:border-gray-200">
+      <div class="bg-white rounded-lg md:rounded-xl shadow-md h-[360px] md:h-[450px] flex flex-col md:p-4 md:border md:border-gray-200 px-2">
   <img
-    class="h-[152px] w-[152px] mb-2 md:w-full md:h-40 md:object-cover rounded-md"
+    class="h-[152px] w-[100%] mb-2 md:w-full md:h-40 md:object-cover rounded-md"
     src="${plant.image}"
     alt="Tree Img"
   />
@@ -155,7 +162,7 @@ const showByCategory = async (id) => {
 
     <button
     onClick="addToCart(${plant.id})"
-      class="bg-[#15803D] w-[95%] md:w-full text-white font-medium mt-2 mb-1 md:mt-4 rounded-lg hover:bg-[#035421] md:px-[20px] md:py-[6px] md:rounded-full"
+      class="bg-[#15803D] w-[95%] md:w-full text-white font-medium mt-2 mb-1 md:mt-4 rounded-xl hover:bg-[#035421] md:px-[20px] md:py-[6px] md:rounded-full"
     >
       Add to Cart
     </button>
@@ -164,8 +171,8 @@ const showByCategory = async (id) => {
       `;
     container.appendChild(div);
   }
+  loader(false);
 };
-
 let TotalPrice = 0;
 // Add to cart
 const addToCart = async (id) => {
@@ -179,7 +186,7 @@ const addToCart = async (id) => {
   div.innerHTML = `
             <div
             id="remove-${id}"
-              class="bg-[#F0FDF4] flex justify-between py-2 border-1 border-gray-200 rounded-lg mb-1 md:px-4"
+              class="bg-[#F0FDF4] flex justify-between py-2 border-1 border-gray-200 rounded-lg mb-1 px-4"
             >
               <div>
                 <h1 class="text-left text-sm font-medium mb-2">${plant.name}</h1>
@@ -201,6 +208,7 @@ const addToCart = async (id) => {
   document.getElementById("total-price").innerHTML = `&#2547; ${TotalPrice}`;
   // console.log(TotalPrice);
 };
+// Remove from cart
 const removeFromCart = (id, price) => {
   document.getElementById(`remove-${id}`).remove();
   TotalPrice -= price;
