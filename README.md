@@ -30,16 +30,24 @@ console.log(addArrow(2, 3));
 Ans:
 Destructuring is a process  in ES6, that allows to assign a particular variable with the values or properties of an array or object.for example:
 ```<language>
+//For array
 const [first, , third] = [10, 20, 30];
 console.log(first, third); // 10 30
 
-const user = { name: "Alice", age: 25 };
+//For object
+const user = { name: "Zihan", age: 25 };
 const { name, age } = user;
-console.log(name, age); // Alice 25
+console.log(name, age); // Zihan 25
 ```
-## 5. 
-
-
-
-
-# Green-Earth: https://zihan231.github.io/Green-Earth/
+## 5. Explain template literals in ES6. How are they different from string concatenation?
+Ans:
+Template literals are a new way of working with strings in javascript. It uses backticks (`) instead of (') or ("). It allows any expressions or variables directly inside string with ${} and does not require \n for new line, the string is printed as it is.
+Example: 
+```<language>
+const name = "Zihan";
+const age = 25;
+const message = `My name is ${name} and I am ${age} years old.`;
+console.log(message);
+// My name is Zihan and I am 25 years old.
+```
+# Live Link: https://zihan231.github.io/Green-Earth
