@@ -13,7 +13,7 @@ filter() also loop through an array and execute a function with condition but re
 ## 3. What are arrow functions in ES6?
 Ans:
 Arrow function is a new way of writing the functions in javascript introduced in ES6. Example:
-````bash
+```<language>
     // Regular function
 function add(a, b) {
   return a + b;
