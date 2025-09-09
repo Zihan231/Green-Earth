@@ -14,7 +14,7 @@ filter() also loop through an array and execute a function with condition but re
 Ans:
 Arrow function is a new way of writing the functions in javascript introduced in ES6. Example:
 ```<language>
-    // Regular function
+// Regular function
 function add(a, b) {
   return a + b;
 }
@@ -26,8 +26,18 @@ console.log(add(2, 3));
 console.log(addArrow(2, 3)); 
 
 ```
+## 4. How does destructuring assignment work in ES6?
+Ans:
+Destructuring is a process  in ES6, that allows to assign a particular variable with the values or properties of an array or object.for example:
+```<language>
+const [first, , third] = [10, 20, 30];
+console.log(first, third); // 10 30
 
-
+const user = { name: "Alice", age: 25 };
+const { name, age } = user;
+console.log(name, age); // Alice 25
+```
+## 5. 
 
 
 
